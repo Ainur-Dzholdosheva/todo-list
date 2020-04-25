@@ -1,5 +1,5 @@
-import React from 'react';
-import './NewItem.css';
+import React from "react";
+import "./NewItem.css";
 
 function NewItem({ addItem, updateNewItem, newItem }) {
   return (

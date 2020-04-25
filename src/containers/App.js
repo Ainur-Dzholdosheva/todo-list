@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import NewItem from '../components/NewItem/NewItem';
-import ItemList from '../components/ItemList/ItemList';
-import './App.css';
+import React, { useState } from "react";
+import NewItem from "../components/NewItem/NewItem";
+import ItemList from "../components/ItemList/ItemList";
+import "./App.css";
 
 function App() {
   const [items, setItems] = useState([
@@ -14,8 +14,12 @@ function App() {
   function addItem() {
     if (newItem.length > 2) {
       setItems([
-        { key: (items.length ? items[0].key : 0) + 1, text: newItem, completed: false },
-        ...items
+        {
+          key: (items.length ? items[0].key : 0) + 1,
+          text: newItem,
+          completed: false,
+        },
+        ...items,
       ]);
       setNewItem("");
     }
@@ -26,17 +30,19 @@ function App() {
   }
 
   function deleteItem(id) {
-    setItems(items.filter(item => item.key !== id));
+    setItems(items.filter((item) => item.key !== id));
   }
 
   function completeItem(id) {
-    setItems(items.map(item => {
-      if (item.key === id) {
-        item.completed = !item.completed;
-      }
+    setItems(
+      items.map((item) => {
+        if (item.key === id) {
+          item.completed = !item.completed;
+        }
 
-      return item;
-    }));
+        return item;
+      })
+    );
   }
 
   return (
@@ -44,11 +50,13 @@ function App() {
       <NewItem
         addItem={addItem}
         newItem={newItem}
-        updateNewItem={updateNewItem} />
+        updateNewItem={updateNewItem}
+      />
       <ItemList
         items={items}
         deleteItem={deleteItem}
-        completeItem={completeItem} />
+        completeItem={completeItem}
+      />
     </div>
   );
 }
