@@ -25,9 +25,18 @@ export default () => {
     newItems[id].completed = !newItems[id].completed;
     setItems(newItems);
   }
+  function addItem(text) {
+    const newItems = { ...items };
+    const id = `todo-${Math.floor(Math.random() * 10000)}`;
+    newItems[id] = {
+      text,
+      completed: false,
+    };
+    setItems(newItems);
+  }
   return (
     <div className={classes.ToDo}>
-      <NewItem />
+      <NewItem addItem={addItem} />
       <Items
         items={items}
         deleteItem={deleteItem}
