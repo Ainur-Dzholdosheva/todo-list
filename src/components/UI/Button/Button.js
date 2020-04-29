@@ -1,6 +1,10 @@
 import React from "react";
 import classes from "./Button.module.css";
 
-export default ({ children }) => {
-  return <button className={classes.Button}>{children}</button>;
+export default ({ children, click }) => {
+  return (
+    <button onClick={click} className={classes.Button}>
+      {children}
+    </button>
+  );
 };
