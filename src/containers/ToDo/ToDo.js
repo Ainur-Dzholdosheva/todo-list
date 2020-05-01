@@ -9,27 +9,34 @@ export default () => {
   const [items, setItems] = useState(null);
 
   function deleteItem(id) {
-    const newItems = { ...items };
-    delete newItems[id];
-    setItems(newItems);
+    axios.delete("items/" + id + ".json").then((response) => {
+      const newItems = { ...items };
+      delete newItems[id];
+      setItems(newItems);
+    });
   }
   function toggleCompleteItem(id) {
-    const newItems = { ...items };
-    newItems[id].completed = !newItems[id].completed;
-    setItems(newItems);
+    axios
+      .put("items/" + id + "/completed.json", !items[id].completed)
+      .then((response) => {
+        const newItems = { ...items };
+        newItems[id].completed = !newItems[id].completed;
+        setItems(newItems);
+      });
   }
   function addItem(text) {
-    const newItems = { ...items };
-    const id = `todo-${Math.floor(Math.random() * 10000)}`;
-    newItems[id] = {
-      text,
-      completed: false,
-    };
-    setItems(newItems);
+    axios.post("items.json", { text, completed: false }).then(({ data }) => {
+      const newItems = { ...items };
+      newItems[data.name] = {
+        text,
+        completed: false,
+      };
+      setItems(newItems);
+    });
   }
 
   useEffect(() => {
-    axios.get("/items.json").then((response) => setItems({ ...response.data }));
+    axios.get("/items.json").then(({ data }) => setItems({ ...data }));
   }, []);
 
   let itemsOutput = <Loading />;
