@@ -9,9 +9,15 @@ export default ({ addItem }) => {
     input.value = "";
     input.focus();
   }
+  function onKeyDown({ key, target }) {
+    if (key === "Enter") {
+      addItem(target.value);
+      target.value = "";
+    }
+  }
   return (
     <div className={classes.NewItem}>
-      <input type="text" />
+      <input type="text" onKeyDown={onKeyDown} />
       <Button click={addButtonClicked} green>
         Add
       </Button>
